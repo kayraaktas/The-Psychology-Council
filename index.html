@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="AI Psychology Council - Powered by the world's largest psychology library for philosophical and psychological awareness.">
+    <meta name="theme-color" content="#f5f7fa">
+    
+    <title>AI Psychology Council | Global Support</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    
+    <style>
+        /* CSS DEĞİŞKENLERİ (VARIABLES)
+           Tüm renkleri ve temel ayarları burada tanımlıyoruz. 
+           Böylece ileride bir rengi değiştirmek istersen sadece burayı güncellemen yeterli olur.
+        */
+        :root {
+            --bg-gradient-start: #f5f7fa;
+            --bg-gradient-end: #c3cfe2;
+            --container-bg: rgba(255, 255, 255, 0.95); /* Biraz daha opak yapıldı */
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --text-heading: #34495e;
+            --border-color: #ecf0f1;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --shadow-main: 0 10px 40px rgba(0, 0, 0, 0.08); /* Biraz daha yumuşak bir gölge */
+        }
+
+        /* TEMEL GÖVDE AYARLARI */
+        body {
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            font-family: var(--font-main);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px; /* Mobil cihazlar için kenar boşluğu */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* height yerine min-height kullanmak içerik uzarsa taşmayı önler */
+            box-sizing: border-box; /* Padding'in genişliğe dahil edilmesini sağlar */
+        }
+
+        /* İÇERİK KUTUSU AYARLARI */
+        .container {
+            text-align: center;
+            background: var(--container-bg);
+            padding: 50px 40px; /* Üst/alt ve sağ/sol boşlukları optimize edildi */
+            border-radius: 20px; /* Köşeler biraz daha yumuşatıldı */
+            box-shadow: var(--shadow-main);
+            max-width: 650px; /* Okunabilirlik için genişlik biraz artırıldı */
+            width: 100%; /* Mobilde tam genişlik alabilmesi için eklendi */
+            backdrop-filter: blur(10px); /* Arka planın hafif bulanık (cam efekti) görünmesini sağlar */
+        }
+
+        /* BAŞLIK VE PARAGRAF AYARLARI */
+        h1 { 
+            margin-top: 0; 
+            font-size: 2.2em; 
+            color: var(--text-heading); 
+            letter-spacing: -0.5px; /* Başlığı biraz daha profesyonel gösterir */
+        }
+        
+        p { 
+            font-size: 1.15em; 
+            color: var(--text-secondary); 
+            line-height: 1.7; 
+            margin-bottom: 30px;
+        }
+
+        /* YASAL UYARI VE GİZLİLİK ALANI */
+        .disclaimer {
+            margin-top: 30px;
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            text-align: justify;
+            line-height: 1.5;
+        }
+        
+        .disclaimer strong, .disclaimer b {
+            color: var(--text-heading);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <h1>The Psychology Council</h1>
+        <p>Welcome to your AI council, powered by the world's largest psychology library. Click the chat icon on the bottom right to begin your session.</p>
+        
+        <div class="disclaimer">
+            <strong>LEGAL DISCLAIMER & PRIVACY:</strong> This platform is an AI model developed solely for philosophical and psychological awareness. <b>It NEVER provides medical diagnoses, prescribes treatment, or replaces a professional doctor.</b> If you are experiencing an emergency or crisis, please contact your local health authorities or psychological support lines. This platform operates on a strictly "Zero-Logging" principle; your conversations are never permanently stored on any server, ensuring maximum privacy.
+        </div>
+    </main>
+
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+        // Sohbet arayüzünü başlatan fonksiyon
+        createChat({
+            // ÖNEMLİ: Bu URL şu an bilgisayarındaki (localhost) n8n'i gösteriyor.
+            // Projeyi internette yayınladığında buraya canlı sunucunun URL'sini girmelisin.
+            webhookUrl: 'http://159.89.8.89.sslip.io:5678/webhook/c783c46c-8672-4cff-b284-e190575f7070/chat',
+            i18n: {
+                en: {
+                    title: 'Psychology Council',
+                    subtitle: 'Online - Zero Logging Active',
+                    getStarted: 'New Conversation',
+                    inputPlaceholder: 'Type your message...',
+                }
+            },
+            // Sohbet açıldığında kullanıcının göreceği ilk mesaj
+            initialMessages: [
+                "Hello. I am the Psychology Council. How can I guide you today?"
+            ]
+        });
+    </script>
+</body>
+</html>
