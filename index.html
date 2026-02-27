@@ -12,20 +12,17 @@
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
     
     <style>
-        /* CSS DEĞİŞKENLERİ (VARIABLES)
-           Tüm renkleri ve temel ayarları burada tanımlıyoruz. 
-           Böylece ileride bir rengi değiştirmek istersen sadece burayı güncellemen yeterli olur.
-        */
+        /* CSS DEĞİŞKENLERİ (VARIABLES) */
         :root {
             --bg-gradient-start: #f5f7fa;
             --bg-gradient-end: #c3cfe2;
-            --container-bg: rgba(255, 255, 255, 0.95); /* Biraz daha opak yapıldı */
+            --container-bg: rgba(255, 255, 255, 0.95);
             --text-primary: #2c3e50;
             --text-secondary: #7f8c8d;
             --text-heading: #34495e;
             --border-color: #ecf0f1;
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --shadow-main: 0 10px 40px rgba(0, 0, 0, 0.08); /* Biraz daha yumuşak bir gölge */
+            --shadow-main: 0 10px 40px rgba(0, 0, 0, 0.08);
         }
 
         /* TEMEL GÖVDE AYARLARI */
@@ -34,33 +31,32 @@
             font-family: var(--font-main);
             color: var(--text-primary);
             margin: 0;
-            padding: 20px; /* Mobil cihazlar için kenar boşluğu */
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* height yerine min-height kullanmak içerik uzarsa taşmayı önler */
-            box-sizing: border-box; /* Padding'in genişliğe dahil edilmesini sağlar */
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
         /* İÇERİK KUTUSU AYARLARI */
         .container {
             text-align: center;
             background: var(--container-bg);
-            padding: 50px 40px; /* Üst/alt ve sağ/sol boşlukları optimize edildi */
-            border-radius: 20px; /* Köşeler biraz daha yumuşatıldı */
+            padding: 50px 40px;
+            border-radius: 20px;
             box-shadow: var(--shadow-main);
-            max-width: 650px; /* Okunabilirlik için genişlik biraz artırıldı */
-            width: 100%; /* Mobilde tam genişlik alabilmesi için eklendi */
-            backdrop-filter: blur(10px); /* Arka planın hafif bulanık (cam efekti) görünmesini sağlar */
+            max-width: 650px;
+            width: 100%;
+            backdrop-filter: blur(10px);
         }
 
-        /* BAŞLIK VE PARAGRAF AYARLARI */
         h1 { 
             margin-top: 0; 
             font-size: 2.2em; 
             color: var(--text-heading); 
-            letter-spacing: -0.5px; /* Başlığı biraz daha profesyonel gösterir */
+            letter-spacing: -0.5px; 
         }
         
         p { 
@@ -70,7 +66,6 @@
             margin-bottom: 30px;
         }
 
-        /* YASAL UYARI VE GİZLİLİK ALANI */
         .disclaimer {
             margin-top: 30px;
             font-size: 0.85em;
@@ -83,6 +78,23 @@
         
         .disclaimer strong, .disclaimer b {
             color: var(--text-heading);
+        }
+
+        /* --- KESİN ÇÖZÜM: VERCEL TOOLBAR HACK --- */
+        /* 1. Vercel'in kendi oluşturduğu araç çubuğunu CSS ile tamamen görünmez yapıyoruz */
+        vercel-live-feedback {
+            display: none !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+        
+        /* 2. Sohbet kutusunun her zaman en üstte ve kesinlikle tıklanabilir olmasını sağlıyoruz */
+        .n8n-chat-widget { 
+            z-index: 999999 !important; 
+        }
+        
+        input, textarea {
+            pointer-events: auto !important;
         }
     </style>
 </head>
@@ -100,10 +112,7 @@
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-        // Sohbet arayüzünü başlatan fonksiyon
         createChat({
-            // ÖNEMLİ: Bu URL şu an bilgisayarındaki (localhost) n8n'i gösteriyor.
-            // Projeyi internette yayınladığında buraya canlı sunucunun URL'sini girmelisin.
             webhookUrl: 'http://159.89.8.89.sslip.io:5678/webhook/c783c46c-8672-4cff-b284-e190575f7070/chat',
             i18n: {
                 en: {
@@ -113,7 +122,6 @@
                     inputPlaceholder: 'Type your message...',
                 }
             },
-            // Sohbet açıldığında kullanıcının göreceği ilk mesaj
             initialMessages: [
                 "Hello. I am the Psychology Council. How can I guide you today?"
             ]
