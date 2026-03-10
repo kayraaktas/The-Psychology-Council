@@ -146,14 +146,44 @@
             ]
         });
 
-        // Chat widget yüklendikten sonra otomatik açık kalmasını sağla
+        // Sohbet arayüzü yüklendikten sonra gerekli güvenlik ve hız sınırlarını (Rate Limit) ekle
         setTimeout(() => {
             const chatToggle = document.querySelector('.chat-toggle');
-            if(chatToggle) {
-                // Widget'i açmak için tıkla
-                chatToggle.click();
-            }
-        }, 500);
+            if(chatToggle) chatToggle.click(); // Tam ekran için zorla aç
+            
+            // Kullanıcının ardı ardına spam yapmasını engellemek için Saniye Kısıtı (Rate Limiter)
+            let isThinking = false;
+            
+            // Tüm klavye ve fare tıklamalarını dinle (Chat Input arayüzü Shadow DOM içinde olabilir, bu yüzden global dinliyoruz)
+            document.addEventListener('keydown', (e) => {
+                if(e.key === 'Enter') {
+                    if(isThinking) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        alert("The Council is still processing your previous inquiry. Please wait a moment.");
+                    } else {
+                        // Enter'a basıldığında 10 saniyelik bir kilit koy
+                        isThinking = true;
+                        setTimeout(() => { isThinking = false; }, 10000); 
+                    }
+                }
+            }, true); // Use capture to intercept early
+
+            document.addEventListener('click', (e) => {
+                // Gönder (Send) butonuna basıldığında
+                if(e.target.closest('button') && e.target.closest('.chat-window')) {
+                    if(isThinking) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        alert("The Council is still processing your previous inquiry. Please wait a moment.");
+                    } else {
+                        isThinking = true;
+                        setTimeout(() => { isThinking = false; }, 10000); 
+                    }
+                }
+            }, true);
+
+        }, 1000);
     </script>
 </body>
 </html>
