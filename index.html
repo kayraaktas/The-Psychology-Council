@@ -16,116 +16,100 @@
         :root {
             --bg-gradient-start: #f5f7fa;
             --bg-gradient-end: #c3cfe2;
-            --container-bg: rgba(255, 255, 255, 0.95);
-            --text-primary: #2c3e50;
+            --text-heading: #2c3e50;
             --text-secondary: #7f8c8d;
-            --text-heading: #34495e;
-            --border-color: #ecf0f1;
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --shadow-main: 0 10px 40px rgba(0, 0, 0, 0.08);
             
-            /* N8N CHAT UI İYİLEŞTİRMELERİ */
-            --chat--message--font-size: 1.05rem;
-            --chat--message--line-height: 1.6;
-            --chat--message--color: #2c3e50;
-            --chat--window--width: 450px;
-            --chat--window--height: 600px;
-            --chat--message--bot--background: #fdfdfd;
-            --chat--message--user--background: #eff3f6;
-            --chat--header--background: #1e293b;
+            /* N8N CHAT UI TAM EKRAN (FULLSCREEN) YÜKSELTMESİ */
+            --chat--message--font-size: 1.1rem;
+            --chat--message--line-height: 1.7;
+            --chat--message--color: #2d3748;
+            --chat--window--width: 100vw;
+            --chat--window--height: 100vh;
+            --chat--window--margin: 0;
+            --chat--window--border-radius: 0;
+            --chat--message--bot--background: #ffffff;
+            --chat--message--user--background: #f1f5f9;
+            --chat--header--background: #ffffff;
+            --chat--header--color: #1e293b;
+            --chat--header--border-bottom: 1px solid #e2e8f0;
+            --chat--toggle--background: transparent;
+            --chat--toggle--display: none; /* Düğmeyi gizle, hep açık yap */
         }
 
         /* TEMEL GÖVDE AYARLARI */
         body {
-            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            background-color: var(--bg-gradient-start);
             font-family: var(--font-main);
-            color: var(--text-primary);
             margin: 0;
-            padding: 20px; 
+            padding: 0; 
+            overflow: hidden; /* Tam ekranda kaydırma çubuklarını gizler */
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
+            height: 100vh;
+            width: 100vw;
         }
 
-        /* İÇERİK KUTUSU AYARLARI */
-        .container {
+        /* VİTRİN BİLGİ ALANI (Sadece yüklenirken görünür, chat üstüne biner) */
+        .splash-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             text-align: center;
-            background: var(--container-bg);
-            padding: 50px 40px;
-            border-radius: 20px;
-            box-shadow: var(--shadow-main);
-            max-width: 650px;
-            width: 100%;
-            backdrop-filter: blur(10px);
+            z-index: 0; /* Chat penceresi bunun üstüne çıkacak */
+            width: 80%;
+            max-width: 600px;
         }
 
-        /* BAŞLIK VE PARAGRAF AYARLARI */
-        h1 { 
-            margin-top: 0; 
-            font-size: 2.2em; 
-            color: var(--text-heading); 
-            letter-spacing: -0.5px;
-        }
-        
-        p { 
-            font-size: 1.15em; 
-            color: var(--text-secondary); 
-            line-height: 1.7; 
-            margin-bottom: 30px;
-        }
-
-        /* YASAL UYARI VE GİZLİLİK ALANI */
-        .disclaimer {
-            margin-top: 30px;
-            font-size: 0.85em;
-            color: var(--text-secondary);
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
-            text-align: justify;
-            line-height: 1.5;
-        }
-        
-        .disclaimer strong, .disclaimer b {
+        .splash-screen h1 {
             color: var(--text-heading);
+            font-size: 2.5em;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .splash-screen p {
+            color: var(--text-secondary);
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        /* N8N CHAT YÜZEYİNİ EZEN CSS */
+        .chat-window {
+            box-shadow: none !important;
+            border: none !important;
         }
     </style>
 </head>
 <body>
 
-    <main class="container">
+    <div class="splash-screen">
         <h1>The Psychology Council</h1>
-        <p>Welcome to your AI council, powered by the world's largest psychology library. Click the chat icon on the bottom right to begin your session.</p>
-        
-        <div class="disclaimer">
-            <strong>LEGAL DISCLAIMER & PRIVACY:</strong> This platform is an AI model developed solely for philosophical and psychological awareness. <b>It NEVER provides medical diagnoses, prescribes treatment, or replaces a professional doctor.</b> If you are experiencing an emergency or crisis, please contact your local health authorities or psychological support lines. This platform operates on a strictly "Zero-Logging" principle; your conversations are never permanently stored on any server, ensuring maximum privacy.
-        </div>
-    </main>
+        <p>Your dedicated AI expert in philosophy and psychology.</p>
+    </div>
 
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-        // Her sekmeye/kullanıcıya özel benzersiz bir hafıza/oturum kimliği (Session ID) üretilir
         const uniqueSessionId = 'session_' + Math.random().toString(36).substring(2, 15);
 
-        // Sohbet arayüzünü başlatan fonksiyon
         createChat({
             webhookUrl: 'https://159.89.8.89.sslip.io/webhook/chat',
             webhookConfig: {
                 method: 'POST',
                 headers: {}
             },
-            mode: 'window',
+            mode: 'window', // Tam ekranı CSS ile zorlayacağımız için window yeterli
+            showWelcomeScreen: true,
             metadata: {
                 sessionId: uniqueSessionId
             },
             i18n: {
                 en: {
-                    title: 'Psychology Council',
-                    subtitle: 'Online - Zero Logging Active',
-                    getStarted: 'New Conversation',
+                    title: 'The Psychology Council',
+                    subtitle: 'Powered by DeepSeek & Pinecone | Zero-Logging Active',
+                    getStarted: 'Start Consultation',
                     inputPlaceholder: 'The Council is consulting the library...',
                 }
             },
@@ -133,6 +117,15 @@
                 "Hello. I am the Psychology Council. How can I guide you today?"
             ]
         });
+
+        // Chat widget yüklendikten sonra otomatik açık kalmasını sağla
+        setTimeout(() => {
+            const chatToggle = document.querySelector('.chat-toggle');
+            if(chatToggle) {
+                // Widget'i açmak için tıkla
+                chatToggle.click();
+            }
+        }, 500);
     </script>
 </body>
 </html>
