@@ -111,6 +111,22 @@
             bottom: 0 !important;
             right: auto !important;
         }
+
+        /* Yalnızca mesaj yazma kutusuna (Input/Footer) zarif bir Apple tarzı çerçeve/gölge eklendi */
+        div[class*="footer"], textarea {
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
+            background-color: #ffffff !important;
+            margin-bottom: 20px !important; /* Alt kısımdan hafif nefes alma payı */
+            padding: 10px !important;
+            transition: all 0.3s ease;
+        }
+        
+        textarea:focus {
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1) !important;
+            border-color: rgba(59, 130, 246, 0.3) !important;
+        }
     </style>
 </head>
 <body>
