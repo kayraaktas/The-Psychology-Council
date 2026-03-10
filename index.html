@@ -122,7 +122,7 @@
         <div class="disclaimer">
             <strong>LEGAL DISCLAIMER & PRIVACY:</strong> This platform is an AI model developed solely for philosophical and psychological awareness. <b>It NEVER provides medical diagnoses, prescribes treatment, or replaces a professional doctor.</b> If you are experiencing an emergency or crisis, please contact your local health authorities or psychological support lines. This platform operates on a strictly "Zero-Logging" principle; your conversations are never permanently stored on any server, ensuring maximum privacy.
         </div>
-    </main>
+    </div>
 
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
@@ -130,12 +130,9 @@
         const uniqueSessionId = 'session_' + Math.random().toString(36).substring(2, 15);
 
         createChat({
-            webhookUrl: 'https://159.89.8.89.sslip.io/webhook/chat',
+            webhookUrl: '/api/chat',
             webhookConfig: {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer the-psychology-council-secure-token'
-                }
+                method: 'POST'
             },
             mode: 'window',
             showWelcomeScreen: true,
