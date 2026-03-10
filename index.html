@@ -12,20 +12,27 @@
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
     
     <style>
-        /* CSS DEĞİŞKENLERİ (VARIABLES)
-           Tüm renkleri ve temel ayarları burada tanımlıyoruz. 
-           Böylece ileride bir rengi değiştirmek istersen sadece burayı güncellemen yeterli olur.
-        */
+        /* CSS DEĞİŞKENLERİ (VARIABLES) */
         :root {
             --bg-gradient-start: #f5f7fa;
             --bg-gradient-end: #c3cfe2;
-            --container-bg: rgba(255, 255, 255, 0.95); /* Biraz daha opak yapıldı */
+            --container-bg: rgba(255, 255, 255, 0.95);
             --text-primary: #2c3e50;
             --text-secondary: #7f8c8d;
             --text-heading: #34495e;
             --border-color: #ecf0f1;
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --shadow-main: 0 10px 40px rgba(0, 0, 0, 0.08); /* Biraz daha yumuşak bir gölge */
+            --shadow-main: 0 10px 40px rgba(0, 0, 0, 0.08);
+            
+            /* N8N CHAT UI İYİLEŞTİRMELERİ */
+            --chat--message--font-size: 1.05rem;
+            --chat--message--line-height: 1.6;
+            --chat--message--color: #2c3e50;
+            --chat--window--width: 450px;
+            --chat--window--height: 600px;
+            --chat--message--bot--background: #fdfdfd;
+            --chat--message--user--background: #eff3f6;
+            --chat--header--background: #1e293b;
         }
 
         /* TEMEL GÖVDE AYARLARI */
@@ -34,25 +41,25 @@
             font-family: var(--font-main);
             color: var(--text-primary);
             margin: 0;
-            padding: 20px; /* Mobil cihazlar için kenar boşluğu */
+            padding: 20px; 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* height yerine min-height kullanmak içerik uzarsa taşmayı önler */
-            box-sizing: border-box; /* Padding'in genişliğe dahil edilmesini sağlar */
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
         /* İÇERİK KUTUSU AYARLARI */
         .container {
             text-align: center;
             background: var(--container-bg);
-            padding: 50px 40px; /* Üst/alt ve sağ/sol boşlukları optimize edildi */
-            border-radius: 20px; /* Köşeler biraz daha yumuşatıldı */
+            padding: 50px 40px;
+            border-radius: 20px;
             box-shadow: var(--shadow-main);
-            max-width: 650px; /* Okunabilirlik için genişlik biraz artırıldı */
-            width: 100%; /* Mobilde tam genişlik alabilmesi için eklendi */
-            backdrop-filter: blur(10px); /* Arka planın hafif bulanık (cam efekti) görünmesini sağlar */
+            max-width: 650px;
+            width: 100%;
+            backdrop-filter: blur(10px);
         }
 
         /* BAŞLIK VE PARAGRAF AYARLARI */
@@ -60,7 +67,7 @@
             margin-top: 0; 
             font-size: 2.2em; 
             color: var(--text-heading); 
-            letter-spacing: -0.5px; /* Başlığı biraz daha profesyonel gösterir */
+            letter-spacing: -0.5px;
         }
         
         p { 
@@ -100,20 +107,28 @@
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
+        // Her sekmeye/kullanıcıya özel benzersiz bir hafıza/oturum kimliği (Session ID) üretilir
+        const uniqueSessionId = 'session_' + Math.random().toString(36).substring(2, 15);
+
         // Sohbet arayüzünü başlatan fonksiyon
         createChat({
-            // ÖNEMLİ: Bu URL şu an bilgisayarındaki (localhost) n8n'i gösteriyor.
-            // Projeyi internette yayınladığında buraya canlı sunucunun URL'sini girmelisin.
             webhookUrl: 'https://159.89.8.89.sslip.io/webhook/chat',
+            webhookConfig: {
+                method: 'POST',
+                headers: {}
+            },
+            mode: 'window',
+            metadata: {
+                sessionId: uniqueSessionId
+            },
             i18n: {
                 en: {
                     title: 'Psychology Council',
                     subtitle: 'Online - Zero Logging Active',
                     getStarted: 'New Conversation',
-                    inputPlaceholder: 'Type your message...',
+                    inputPlaceholder: 'The Council is consulting the library...',
                 }
             },
-            // Sohbet açıldığında kullanıcının göreceği ilk mesaj
             initialMessages: [
                 "Hello. I am the Psychology Council. How can I guide you today?"
             ]
