@@ -1,28 +1,30 @@
-# AI Psychology Council
+# The Psychology Council - Enterprise RAG Application
 
-## Overview
-The AI Psychology Council is an advanced conversational interface built on a Retrieval-Augmented Generation (RAG) architecture. It functions as a philosophical and psychological guide by querying a curated vector database of over 41,000 psychological data points. The system is designed to simulate the analytical perspectives of renowned psychologists and theorists, providing users with context-aware responses.
+An end-to-end, serverless Retrieval-Augmented Generation (RAG) platform designed to provide expert psychological and philosophical consultation relying strictly on authorized, curated academic literature.
 
-## System Architecture
-The project operates on a decentralized backend workflow to ensure fast inference and data privacy:
+## Architecture Overview
 
-1. **Frontend Interface:** A minimalist chat interface deployed via Vercel, directly communicating with the backend webhook.
-2. **Orchestration Layer:** n8n (hosted on a dedicated Frankfurt server) manages webhook triggers, data routing, and API limits.
-3. **Vector Database:** Pinecone stores the embedded knowledge base, allowing for rapid semantic search across 41,000+ entries.
-4. **LLM Engine:** Groq API (utilizing the Llama-3.1-8b model) processes the retrieved context. The model is strictly bound by system prompts to prevent tool leakage and enforce the expert persona.
+The system architecture bridges a high-performance **Vercel** frontend with a robust, zero-logging **n8n** backend orchestration layer.
 
-## Tech Stack
-- **Workflow Automation:** n8n
-- **Vector Store:** Pinecone
-- **Large Language Model:** Groq (Llama-3.1-8b)
-- **Embeddings:** HuggingFace
-- **Deployment:** Vercel (Frontend), Custom VPS (Backend)
+*   **Frontend (Vercel):** A responsive, full-screen chat interface built with native HTML/JS traversing modern CSS configurations. Embedded rate-limiters protect against concurrent SPAM logic and API exhaustion, while dynamic `SessionID` generation prevents context-bleeding across concurrent users.
+*   **Orchestration (n8n):** Handles all Webhook routing, memory window buffering, payload stripping, and conversational agent logic through custom secure endpoints mapping natively to Vercel. 
+*   **Vector Database (Pinecone):** Academic research documents synchronized from Google Drive into a secure high-dimensional vector store, chunked for context-preservation.
+*   **LLM & Embeddings:** Powered by DeepSeek conversational models coupled with HuggingFace embedding protocols to interpret context accurately without hallucinations.
 
-## Core Features
-- **Strict RAG Implementation:** Responses are grounded entirely in the provided psychological literature, significantly reducing hallucination rates.
-- **Zero-Logging Policy:** To ensure user privacy, conversations are processed in real-time and are not stored in any permanent database.
-- **Prompt Injection Defense:** The system message includes critical security protocols designed to prevent users from overriding the core instructions or breaking the persona.
-- **Low Latency:** Optimized through Groq's LPU architecture for near-instantaneous query resolution.
+## Key Features
 
-## Disclaimer
-This application is strictly an experimental AI model developed for philosophical exploration and psychological awareness. It does not provide medical diagnoses, prescribe treatments, or serve as a substitute for professional clinical therapy.
+*   **100% Zero-Logging Principle:** Designed from the ground up for strict data privacy. The system utilizes real-time `SessionID` allocation for temporary contextual memory and clears history proactively. No persistent external db storage logs user queries.
+*   **Direct Source Citation:** The conversational agent is strictly constrained to the metadata available within the Pinecone cluster, automatically citing author documents to prevent hallucination.
+*   **Secure Stateless Webhooks:** Headless architecture enforcing API `Bearer` tokens on all outbound frontend fetch requests towards the n8n logic node.
+*   **Rate-Limiting Logic:** Front-end event listener constraints preventing API flood attacks.
+
+## Environment configuration
+
+To execute this architecture locally, the n8n backend requires:
+*   A deployed Pinecone index named `psikoloji`.
+*   An n8n Webhook node running authenticated via Header Key `Authorization: Bearer <token>`.
+*   DeepSeek Chat / API credentials registered within the workflow.
+
+## Legal Disclaimer
+
+*The platform functions strictly as an academic and philosophical discussion simulation. It never provides medical diagnoses, prescribes treatments, or replaces professional medical consultation.*
