@@ -31,12 +31,17 @@ export default async function handler(req, res) {
 
     try {
       finalData = JSON.parse(rawData);
+      // Eğer n8n zaten {"output": "cevap"} objesi döndüyse bozma
+      if (!finalData.output) {
+        finalData = { output: typeof finalData === 'string' ? finalData : JSON.stringify(finalData) };
+      }
     } catch(e) {
-      finalData = rawData;
+      // Eğer n8n sadece düz metin (string) döndürdüyse, bunu n8n-chat'in anladığı JSON'a çevir
+      finalData = { output: rawData };
     }
 
-    // Elde edilen veriyi Vercel arayüzüne (index.html) güvenle yolla
-    return res.status(200).send(finalData);
+    // Elde edilen veriyi Vercel arayüzüne (index.html) @n8n/chat formatında güvenle yolla
+    return res.status(200).json(finalData);
     
   } catch (error) {
     console.error("Error communicating with n8n:", error);
