@@ -1,8 +1,11 @@
 # The Psychology Council - Enterprise RAG Application
 
-<div align="center">
-https://github.com/kayraaktas/The-Psychology-Council/raw/main/demo.mp4
 <br>
+
+https://github.com/kayraaktas/The-Psychology-Council/raw/main/demo.mp4
+
+<br>
+<div align="center">
 <i>Watch the full demonstration of the zero-logging architecture and academic AI in action.</i>
 </div>
 
