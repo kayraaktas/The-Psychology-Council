@@ -30,9 +30,15 @@
             --chat--window--border-radius: 0;
             --chat--message--bot--background: #ffffff;
             --chat--message--user--background: #f1f5f9;
+            --chat--message--user--color: #2d3748;
             --chat--header--background: #ffffff;
             --chat--header--color: #1e293b;
             --chat--header--border-bottom: 1px solid #e2e8f0;
+            
+            /* MESAJ KUTUSU (INPUT) DÜZELTMELERİ */
+            --chat--input--background: #ffffff;
+            --chat--input--color: #2d3748;
+            
             --chat--toggle--background: transparent;
             --chat--toggle--display: none; /* Düğmeyi gizle, hep açık yap */
         }
@@ -53,13 +59,13 @@
         /* VİTRİN BİLGİ ALANI (Sadece yüklenirken görünür, chat üstüne biner) */
         .splash-screen {
             position: absolute;
-            top: 50%;
+            top: 40%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
             z-index: 0; /* Chat penceresi bunun üstüne çıkacak */
             width: 80%;
-            max-width: 600px;
+            max-width: 650px;
         }
 
         .splash-screen h1 {
@@ -73,6 +79,21 @@
             color: var(--text-secondary);
             font-size: 1.2em;
             line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* YASAL UYARI VE GİZLİLİK ALANI */
+        .disclaimer {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 20px;
+            text-align: justify;
+            line-height: 1.5;
+        }
+        
+        .disclaimer strong, .disclaimer b {
+            color: var(--text-heading);
         }
 
         /* N8N CHAT YÜZEYİNİ EZEN CSS */
@@ -87,7 +108,11 @@
     <div class="splash-screen">
         <h1>The Psychology Council</h1>
         <p>Your dedicated AI expert in philosophy and psychology.</p>
-    </div>
+        
+        <div class="disclaimer">
+            <strong>LEGAL DISCLAIMER & PRIVACY:</strong> This platform is an AI model developed solely for philosophical and psychological awareness. <b>It NEVER provides medical diagnoses, prescribes treatment, or replaces a professional doctor.</b> If you are experiencing an emergency or crisis, please contact your local health authorities or psychological support lines. This platform operates on a strictly "Zero-Logging" principle; your conversations are never permanently stored on any server, ensuring maximum privacy.
+        </div>
+    </main>
 
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
