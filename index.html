@@ -126,7 +126,9 @@
             webhookUrl: 'https://159.89.8.89.sslip.io/webhook/chat',
             webhookConfig: {
                 method: 'POST',
-                headers: {}
+                headers: {
+                    'Authorization': 'Bearer the-psychology-council-secure-token'
+                }
             },
             mode: 'window', // Tam ekranı CSS ile zorlayacağımız için window yeterli
             showWelcomeScreen: true,
