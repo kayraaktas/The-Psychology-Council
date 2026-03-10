@@ -1,9 +1,12 @@
 # The Psychology Council - Enterprise RAG Application
 
+<br>
+
+https://github.com/user-attachments/assets/ed8f136d-c51d-413f-aa4b-e9b50555f13a
+
+<br>
 <div align="center">
-  <video src="https://github.com/kayraaktas/The-Psychology-Council/raw/main/demo.mp4" width="100%" controls autoplay loop></video>
-  <br>
-  <i>Watch the full demonstration of the zero-logging architecture and academic AI in action.</i>
+<i>Watch the full demonstration of the zero-logging architecture and academic AI in action.</i>
 </div>
 
 An end-to-end, serverless Retrieval-Augmented Generation (RAG) platform designed to provide expert psychological and philosophical consultation relying strictly on authorized, curated academic literature.
